@@ -13,17 +13,25 @@ class BooksController < ApplicationController
   end
 
   def show
+    @book = Book.find(params[:id])
   end
 
   def edit
+    @book = Book.find(params[:id])
   end
 
   
 
   def update
+    book = Book.find(params[:id])
+        book.update(book_params)
+        redirect_to book_path(book.id)
   end
 
   def destroy
+    book = Book.find(params[:id]) #データ(レコード)を1件取得
+        book.destroy #データ（レコード）を削除
+        redirect_to books_path #List一覧画面へリダイレクト
   end
 
   def create
@@ -32,7 +40,7 @@ class BooksController < ApplicationController
     # DBへ保存する
      book.save
     # トップ画面へリダイレクト
-    redirect_to books_path
+    redirect_to book
 end
 private
 
